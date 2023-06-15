@@ -19,16 +19,22 @@ print("hello! Let's get started")  # it printed "hello! Let's get started"
 
 some_words = ["what", "does", "this", "line", "do", "?"]
 
+# I think it will declare a variable called some_words
+# and it will put a list of string into it. 
 for word in some_words:
-    print(word)
+    print(word) # it printed "what" and continues the list
 
-for x in some_words:
+# I think it will declare a variable called some_words
+# and it will put a list of string into it
+for x in some_words: #it printed "what" and continues the list
     print(x)
 
-print(some_words)
+# I think this will print "["what", "does", "this", "line", "do", "?"]"
+print(some_words) # it printed ["what", "does", "this", "line", "do", "?"]"
 
-if len(some_words) > 3:
-    print("some_words contains more than 3 words")
+#I think it will print "some_words contains more than 3 words"
+if len(some_words) > 3: 
+    print("some_words contains more than 3 words") #it printed "some_words contains more than 3 words"
 
 
 def usefulFunction():

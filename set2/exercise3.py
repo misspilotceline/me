@@ -3,6 +3,7 @@
 
 
 def is_odd(a_number):
+
     """Return True if a_number is odd, and False if a_number is even.
 
     Look into modulo division using the '%' operator as one way of doing this.
@@ -13,10 +14,18 @@ def is_odd(a_number):
 
     So if a_number modulo two is zero, then it's even.
     """
-    return None
+    return a_number % 2 != 0
 
 
 def fix_it(moves=True, should_move=True):
+    if moves and should_move:
+        return "No Problem"
+    elif moves and not should_move:
+        return "Duct Tape"
+    elif not moves and should_move:
+        return "WD-40"
+    else:
+        return "No Problem"
     """Decide what to do.
 
     Using the engineering flowchart (in week2 folder of the CODE1161-2019
@@ -48,16 +57,24 @@ def loops_preview():
 
 
 def loops_1a():
+    star_list = []
+    for i in range(10):
+        star_list.append("*")
     """Make 10 stars.
 
     Using a for loop
     return a list of 10 items, each one a string with exacly one star in it.
     E.g.: ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*']
     """
-    return None
+    return star_list
 
 
 def loops_1c(number_of_items=5, symbol="#"):
+    number_of_items=5
+    symbol="#"
+    result_list = []
+    for i in range(number_of_items):
+       result_list.append(symbol)
     """Respond to variables.
 
     Return a list of number_of_items items, each one a
@@ -67,10 +84,18 @@ def loops_1c(number_of_items=5, symbol="#"):
     Remember that you're being passed arguments here. Don't hard code the number
     or the symbol, let it be whatever it wants to be.
     """
-    return None
+    return result_list
 
 
 def loops_2():
+    loop1_list=[]
+    for i in range(10):
+        loop1_list.append("*")
+
+        loop2_list=[]
+        for i in range(10):
+            loop2_list.append(loop1_list)
+
     """Make a big square starfield.
 
     return a list of 10 items, each one a list of 10 items,
@@ -88,10 +113,15 @@ def loops_2():
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
           ]
     """
-    return None
+    return loop2_list
 
 
 def loops_3():
+    loop3_list=[]
+    for i in range(10):
+        inner_list = [str(i)] * 10
+        loop3_list.append(inner_list)
+
     """Make a rising block of numbers.
 
     Return this:
@@ -112,10 +142,14 @@ def loops_3():
     TIP: notice that this needs to to return strings of numbers,
          so call str(number) to cast.
     """
-    return None
+    return loop3_list
 
 
 def loops_4():
+    loop4_list = []
+    for i in range(10):
+        inner_list=[str(i) for i in range(10)]
+        loop4_list.append(inner_list)
     """Make a block of numbers that rises left to right.
 
     Return this:
@@ -132,10 +166,14 @@ def loops_4():
       ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     ]
     """
-    return None
+    return loop4_list
 
 
 def loops_5():
+    loop5_list = []
+    for i in range(10):
+        inner_list = [('i{},j{}').format(i,j)for j in range(5)]
+        loop5_list.append(inner_list)
     """Make the coordinates of the block.
 
     Return this:
@@ -162,10 +200,14 @@ def loops_5():
         f"There are {num_bottles} green bottles"
     you'll come to see the pros and cons of each over time.
     """
-    return None
+    return loop5_list
 
 
 def loops_6():
+    loop6_list = []
+    for i in range(10):
+        inner_list= [str(j) for j in range (i+1)]
+        loop6_list.append(inner_list)
     """Make a wedge of numbers.
 
     Return this:
@@ -185,10 +227,19 @@ def loops_6():
     You can use a variable.
     TIP: look out for the starting condition.
     """
-    return None
+    return loop6_list
 
 
 def loops_7():
+    loop7_list = []
+
+    for i in range(5):
+            number_of_space = 4 - i
+            number_of_stars = 2 * i + 1
+            inner_list = [' ']*number_of_space + ['*']*number_of_stars + [' ']*number_of_space
+            loop7_list.append(inner_list)
+
+
     """Make a pyramid.
 
     Return this:
@@ -209,7 +260,7 @@ def loops_7():
     This is a hard problem. Use lots of experimentation and draw
     lots of diagrams!
     """
-    return None
+    return loop7_list
 
 
 def little_printer(some_kind_of_list, exercise_name):
