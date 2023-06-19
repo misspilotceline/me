@@ -70,11 +70,6 @@ def loops_1a():
 
 
 def loops_1c(number_of_items=5, symbol="#"):
-    number_of_items=5
-    symbol="#"
-    result_list = []
-    for i in range(number_of_items):
-       result_list.append(symbol)
     """Respond to variables.
 
     Return a list of number_of_items items, each one a
@@ -84,8 +79,7 @@ def loops_1c(number_of_items=5, symbol="#"):
     Remember that you're being passed arguments here. Don't hard code the number
     or the symbol, let it be whatever it wants to be.
     """
-    return result_list
-
+    return [symbol] * number_of_items
 
 def loops_2():
     loop1_list=[]
@@ -170,10 +164,13 @@ def loops_4():
 
 
 def loops_5():
-    loop5_list = []
-    for i in range(10):
-        inner_list = [('i{},j{}').format(i,j)for j in range(5)]
-        loop5_list.append(inner_list)
+result = []
+for i in range(10):
+    row = []
+    for j in range(5):
+        coordinate = f"(i{i},j{j})"
+        row.append(coordinate)
+        result.append(row)
     """Make the coordinates of the block.
 
     Return this:
@@ -200,7 +197,7 @@ def loops_5():
         f"There are {num_bottles} green bottles"
     you'll come to see the pros and cons of each over time.
     """
-    return loop5_list
+    return result
 
 
 def loops_6():

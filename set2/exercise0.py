@@ -3,7 +3,7 @@
 
 The command to run the tests is:
 
-v
+python3.../course/set2/tests.py
 
 
 In each function, where you see:
