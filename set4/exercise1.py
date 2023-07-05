@@ -40,7 +40,24 @@ def get_some_details():
     json_data = open(LOCAL + "/lazyduck.json").read()
 
     data = json.loads(json_data)
-    return {"lastName": None, "password": None, "postcodePlusID": None}
+
+    results = data.get("results",[])
+
+    if results:
+        user_info = results[0]
+        name_info = user_info.get("name",{})
+        location_info = user_info.get("location",{})
+        id_value = int(user_info.get("id",{}).get("value","0"))
+        post_code = int(location_info.get("postcode","0"))
+        last_name = name_info.get("last","")
+        pass_word= (user_info.get("login",{}).get("password",""))
+
+        postcode_plus_id = post_code + id_value
+
+        return {"lastName":last_name,"password":pass_word,"postcodePlusID":postcode_plus_id}
+    else:
+      
+        return {"lastName": None, "password": None, "postcodePlusID": None}
 
 
 def wordy_pyramid():
@@ -77,12 +94,25 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &wordlength=
     """
+    base_url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength="
     pyramid = []
+    for i in range(3,20,2):
+        url = f"{base_url}{i}"
+        response = requests.get(url)
+        word = response.text.strip()
+        pyramid.append(word)
+
+    for i in range(20,2,-2):
+        url = f"{base_url}{i}"
+        response = requests.get(url)
+        word = response.text.strip()
+        pyramid.append(word)
+
+
 
     return pyramid
 
-
-def pokedex(low=1, high=5):
+def pokedex(low, high):
     """Return the name, height and weight of the tallest pokemon in the range low to high.
 
     Low and high are the range of pokemon ids to search between.
@@ -96,13 +126,25 @@ def pokedex(low=1, high=5):
          get very long. If you are accessing a thing often, assign it to a
          variable and then future access will be easier.
     """
-    id = 5
-    url = f"https://pokeapi.co/api/v2/pokemon/{id}"
-    r = requests.get(url)
+
+    tallest_pokemon_height = 0
+    tallest_pokemon_weight = 0
+    tallest_pokemon_name = ""
+    for id in range (low, high + 1):
+        url = f"https://pokeapi.co/api/v2/pokemon/{id}"
+        r = requests.get(url)
+
     if r.status_code is 200:
         the_json = json.loads(r.text)
+        height = the_json.get("height","0")
+        weight = the_json.get("weight","0")
+    if height > tallest_pokemon_height:
+        tallest_pokemon_height = height
+        tallest_pokemon_name = the_json.get("name","")
+        tallest_pokemon_weight = weight
 
-    return {"name": None, "weight": None, "height": None}
+
+    return {"name": tallest_pokemon_name, "weight": tallest_pokemon_weight, "height": tallest_pokemon_height}
 
 
 def diarist():
