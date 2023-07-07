@@ -130,18 +130,18 @@ def pokedex(low, high):
     tallest_pokemon_height = 0
     tallest_pokemon_weight = 0
     tallest_pokemon_name = ""
+    pokemon_bucket=[]
     for id in range (low, high + 1):
         url = f"https://pokeapi.co/api/v2/pokemon/{id}"
         r = requests.get(url)
-
-    if r.status_code is 200:
-        the_json = json.loads(r.text)
-        height = the_json.get("height","0")
-        weight = the_json.get("weight","0")
-    if height > tallest_pokemon_height:
-        tallest_pokemon_height = height
-        tallest_pokemon_name = the_json.get("name","")
-        tallest_pokemon_weight = weight
+        if r.status_code is 200:
+            the_json = json.loads(r.text)
+            height = the_json.get("height","0")
+            weight = the_json.get("weight","0")
+            if height > tallest_pokemon_height:
+                tallest_pokemon_height = height
+                tallest_pokemon_name = the_json.get("name","")
+                tallest_pokemon_weight = weight
 
 
     return {"name": tallest_pokemon_name, "weight": tallest_pokemon_weight, "height": tallest_pokemon_height}
@@ -164,6 +164,25 @@ def diarist():
 
     NOTE: this function doesn't return anything. It has the _side effect_ of modifying the file system
     """
+    input_file_path = "Trispokedovetiles(laser).gcode"
+    output_directory = "Set4"
+    output_file_path = os.path.join(output_directory,"lasers.pew")
+
+    command_count = 0
+    try:
+        with open(input_file_path,"r") as file:
+            for line in file:
+                if "M10 P10" in line:
+                    command_count+= 1
+    except FileNotFoundError:
+        print("G-code file not found")
+        return
+    os.makedirs(output_directory,exist_ok=True)
+
+    with open(output_file_path,"w") as file:
+        file.write(str(command_count))
+
+
     pass
 
 
