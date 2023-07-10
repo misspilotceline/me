@@ -157,42 +157,23 @@ def diarist():
 
     TIP: you need to write a string, so you'll need to cast your number
     TIP: Trispokedovetiles(laser).gcode uses windows style line endings. CRLF
-         not just LF like unix does now. If your comparison is failing this
-         might be why. Try in rather than == and that might help.
+     not just LF like unix does now. If your comparison is failing this
+     might be why. Try in rather than == and that might help.
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
-         the test will have nothing to look at.
+    the test will have nothing to look at.
     TIP: this might come in handy if you need to hack a 3d print file in the future.
 
     NOTE: this function doesn't return anything. It has the _side effect_ of modifying the file system
     """
-    input_file_path = "Trispokedovetiles(laser).gcode"
-    output_directory = "set4"
-    output_file_path = os.path.join(output_directory,"lasers.pew")
+file = open(LOCAL + "/Trispokedovetiles(laser).gcode", "r")
+command_count = 0
+for line in file:
+    if "M10 P1" in line:
+        command_count+= 1
 
-    command_count = 0
-    mode = "r"
-    writemode = "w"
-    try:
-        with open(input_file_path,mode,encoding="utf-8") as file:
-            contents= json.load(file)
-            for line in contents:
-                if "M10 P1" in line:
-                 command_count+= 1
-
-    except FileNotFoundError:
-        print("G-code file not found")
-        return
+with open(LOCAL + "/lasers.pew", "w") as lasers:
+    lasers.write(str(command_count))
     
-    os.makedirs(output_directory,exist_ok=True)
-
-    with open(output_file_path,writemode,encoding="utf-8") as file:
-        file.write(str(command_count))
-        file.close()
-    
-
-
-    pass
-
 
 if __name__ == "__main__":
     print(get_some_details())
