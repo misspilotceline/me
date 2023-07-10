@@ -147,6 +147,7 @@ def pokedex(low, high):
     return {"name": tallest_pokemon_name, "weight": tallest_pokemon_weight, "height": tallest_pokemon_height}
 
 
+import os
 def diarist():
     """Read gcode and find facts about it.
 
@@ -165,22 +166,29 @@ def diarist():
     NOTE: this function doesn't return anything. It has the _side effect_ of modifying the file system
     """
     input_file_path = "Trispokedovetiles(laser).gcode"
-    output_directory = "Set4"
+    output_directory = "set4"
     output_file_path = os.path.join(output_directory,"lasers.pew")
 
     command_count = 0
+    mode = "r"
+    writemode = "w"
     try:
-        with open(input_file_path,"r") as file:
-            for line in file:
-                if "M10 P10" in line:
-                    command_count+= 1
+        with open(input_file_path,mode,encoding="utf-8") as file:
+            contents= json.load(file)
+            for line in contents:
+                if "M10 P1" in line:
+                 command_count+= 1
+
     except FileNotFoundError:
         print("G-code file not found")
         return
+    
     os.makedirs(output_directory,exist_ok=True)
 
-    with open(output_file_path,"w") as file:
+    with open(output_file_path,writemode,encoding="utf-8") as file:
         file.write(str(command_count))
+        file.close()
+    
 
 
     pass
